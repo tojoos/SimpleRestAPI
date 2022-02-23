@@ -24,13 +24,25 @@ public class PersonController {
     }
 
     @GetMapping("/person/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public Person getPerson(@PathVariable UUID id) {
         return personService.getPerson(id);
     }
 
+    @DeleteMapping("/person/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePersonById(@PathVariable UUID id) {
+        personService.deletePersonById(id);
+    }
+
+    @PutMapping("/person/update/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updatePerson(@PathVariable UUID id, @RequestBody Person person) {
+        personService.updatePerson(id, person);
+    }
+
     @GetMapping("/person/all")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public List<Person> getAllPeople() {
         return personService.getAllPeople();
     }

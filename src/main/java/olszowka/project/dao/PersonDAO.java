@@ -11,6 +11,10 @@ public interface PersonDAO {
 
     Person getPerson(UUID id);
 
+    void deletePersonById(UUID id);
+
+    void updatePerson(UUID id, Person person);
+
     List<Person> getAllPeople();
 
     default Person insertPerson(Person person) {

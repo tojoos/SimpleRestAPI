@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Repository("fakeDAO")
@@ -23,8 +24,25 @@ public class FakePersonDataAccessService implements PersonDAO {
 
     @Override
     public Person getPerson(UUID id) {
-        DB.forEach(p -> System.out.println(p.getId()));
-        return DB.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
+        return DB.stream().filter(p -> p.getId().equals(id)).findAny().orElse(null);
+    }
+
+    @Override
+    public void deletePersonById(UUID id) {
+        Person foundPerson = getPerson(id);
+        if(foundPerson != null)
+            DB.remove(foundPerson);
+        else
+            throw new NoSuchElementException("Person with id: " + id + " was not found in DB");
+    }
+
+    @Override
+    public void updatePerson(UUID id, Person person) {
+        Person foundPerson = getPerson(id);
+        if(foundPerson != null)
+            DB.set(DB.indexOf(foundPerson), new Person(id, person.getName()));
+        else
+            throw new NoSuchElementException("Person with id: " + id + " was not found in DB");
     }
 
     @Override

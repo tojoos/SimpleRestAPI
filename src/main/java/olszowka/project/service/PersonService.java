@@ -25,6 +25,14 @@ public class PersonService {
         return personDAO.getPerson(id);
     }
 
+    public void deletePersonById(UUID id) {
+        personDAO.deletePersonById(id);
+    }
+
+    public void updatePerson(UUID id, Person person) {
+        personDAO.updatePerson(id, person);
+    }
+
     public List<Person> getAllPeople() {
         return personDAO.getAllPeople();
     }
