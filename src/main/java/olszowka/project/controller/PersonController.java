@@ -5,6 +5,7 @@ import olszowka.project.service.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class PersonController {
 
     @PostMapping("/person/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public Person addPerson(@RequestBody Person person) {
+    public Person addPerson(@Valid @RequestBody Person person) {
         return personService.insertNewPerson(person);
     }
 
@@ -37,7 +38,7 @@ public class PersonController {
 
     @PutMapping("/person/update/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updatePerson(@PathVariable UUID id, @RequestBody Person person) {
+    public void updatePerson(@PathVariable UUID id, @Valid @RequestBody Person person) {
         personService.updatePerson(id, person);
     }
 
