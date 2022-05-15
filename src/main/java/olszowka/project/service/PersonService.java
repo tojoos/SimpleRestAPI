@@ -13,7 +13,7 @@ public class PersonService {
 
     private final PersonDAO personDAO;
 
-    public PersonService(@Qualifier("fakeDAO") PersonDAO personDAO) {
+    public PersonService(@Qualifier("postgres") PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
 
@@ -22,7 +22,7 @@ public class PersonService {
     }
 
     public Person getPerson(UUID id) {
-        return personDAO.getPerson(id);
+        return personDAO.getPersonById(id);
     }
 
     public void deletePersonById(UUID id) {

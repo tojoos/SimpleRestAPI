@@ -1,8 +1,6 @@
 package olszowka.project.dao;
 
 import olszowka.project.model.Person;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -23,13 +21,13 @@ public class FakePersonDataAccessService implements PersonDAO {
     }
 
     @Override
-    public Person getPerson(UUID id) {
+    public Person getPersonById(UUID id) {
         return DB.stream().filter(p -> p.getId().equals(id)).findAny().orElse(null);
     }
 
     @Override
     public void deletePersonById(UUID id) {
-        Person foundPerson = getPerson(id);
+        Person foundPerson = getPersonById(id);
         if(foundPerson != null)
             DB.remove(foundPerson);
         else
@@ -38,7 +36,7 @@ public class FakePersonDataAccessService implements PersonDAO {
 
     @Override
     public void updatePerson(UUID id, Person person) {
-        Person foundPerson = getPerson(id);
+        Person foundPerson = getPersonById(id);
         if(foundPerson != null)
             DB.set(DB.indexOf(foundPerson), new Person(id, person.getName()));
         else

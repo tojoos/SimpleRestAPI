@@ -9,7 +9,7 @@ public interface PersonDAO {
 
     Person insertPerson(UUID id, Person person);
 
-    Person getPerson(UUID id);
+    Person getPersonById(UUID id);
 
     void deletePersonById(UUID id);
 
